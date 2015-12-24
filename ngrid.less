@@ -1,0 +1,71 @@
+/////////////////////////////////////////////////////
+// Grid system using native(browser) columns       //
+//                                                 //
+// Replacement for Bootstrap row-based grid system //
+//                                                 //
+// Created by hneiva                               //
+/////////////////////////////////////////////////////
+
+// Sizes, copied from bootstrap
+@screen-xs: 480px;
+@screen-sm: 768px;
+@screen-md: 992px;
+@screen-lg: 1200px;
+
+@ngrid-gap: 5px;
+
+// Make grids
+.loop-ngrid-columns(12, xs);
+
+@media (min-width: @screen-sm) {
+  .loop-ngrid-columns(12, sm);
+}
+@media (min-width: @screen-md) {
+  .loop-ngrid-columns(12, md);
+}
+@media (min-width: @screen-lg) {
+  .loop-ngrid-columns(12, lg);
+}
+
+// Basic looping in LESS
+.loop-ngrid-columns(@max-columns, @class) when (@max-columns >= 0) {
+  .make-ngrid-column(@max-columns, @class);
+  // next iteration
+  .loop-ngrid-columns((@max-columns - 1), @class);
+}
+
+.make-ngrid-column(@column, @class) {
+  @item: ~".ngrid-@{class}-@{column}";
+  @{item} {
+    -webkit-column-count: @column; /* Chrome, Safari, Opera */
+    -moz-column-count: @column;    /* Firefox */
+    column-count: @column;         /* Global Std */
+
+    -webkit-column-gap: @vgrid-gap;
+    -moz-column-gap:    @vgrid-gap;
+    column-gap:         @vgrid-gap;
+
+    // no-wraps for children items
+    > span,
+    > div,
+    > table {
+      -webkit-column-break-inside: avoid;
+      -moz-column-break-inside:    avoid;
+      -moz-page-break-inside:      avoid;
+      page-break-inside:           avoid;
+      break-inside:                avoid-column;
+
+      // Last resort for no-wraps
+      display: block;
+      width:   100%;
+
+      // Fix Chrome weird v-align on headers
+      margin-top: 0.5px;
+
+      // Between items padding
+      &:not(:last-child) {
+        margin-bottom: @vgrid-gap;
+      }
+    }
+  }
+}
