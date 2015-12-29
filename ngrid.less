@@ -41,9 +41,9 @@
     -moz-column-count: @column;    /* Firefox */
     column-count: @column;         /* Global Std */
 
-    -webkit-column-gap: @vgrid-gap;
-    -moz-column-gap:    @vgrid-gap;
-    column-gap:         @vgrid-gap;
+    -webkit-column-gap: @ngrid-gap;
+    -moz-column-gap:    @ngrid-gap;
+    column-gap:         @ngrid-gap;
 
     // no-wraps for children items
     // You may want to change this to whatever class/element you wish
@@ -65,7 +65,7 @@
 
       // Between items padding
       &:not(:last-child) {
-        margin-bottom: @vgrid-gap;
+        margin-bottom: @ngrid-gap;
       }
     }
   }
